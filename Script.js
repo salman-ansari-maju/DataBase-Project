@@ -7,15 +7,26 @@ mongoose.connect(
 run();
 async function run() {
   try {
-    const user = await new User({
-      name: "Salman",
-      age: 25,
-      email: "Sally@kyle.com",
-      hobbies: ["gym", "cricket"],
-      address: { city: "karachi" },
-    });
+    // const user = await User.where("_id").equals("64e5fa216106d6bb5c0ca2cb");
+    const user = await User.findById("64e5fa216106d6bb5c0ca2cb").populate(
+      "bestFriend"
+    );
+    // user.bestFriend = "64e5fe2bd9e894078e2a33a5";
+    // await user.save();
+    // .select("name")
+    // .populate("bestFriend")
 
-    await user.save();
+    // const user = await new User({
+    //   name: "Salman",
+    //   age: 25,
+    //   email: "Sally@kyle.com",
+    //   hobbies: ["gym", "cricket"],
+    //   address: { city: "karachi" },
+    // });
+
+    // await user.save();
+    // user[0].bestFriend = "64e5fe2bd9e894078e2a33a5";
+    // await user[0].save;
     console.log(user);
   } catch (error) {
     console.log(error.message);

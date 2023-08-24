@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, lowercase: true },
   createdAt: { type: Date, default: () => Date.now() },
   updatedAt: { type: Date, default: () => Date.now() },
-  bestFriend: mongoose.SchemaTypes.ObjectId,
+  bestFriend: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
   hobbies: [String],
   address: addressSchema,
 });
