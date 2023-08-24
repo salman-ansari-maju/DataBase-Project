@@ -4,13 +4,16 @@ const User = require("./User");
 mongoose.connect(
   "mongodb+srv://sp19bscs0038:ansari123@cluster0.mgcjt2g.mongodb.net/practice-db"
 );
+
+//////////Web Dev Simplified :VEDIO NAME(Mongoose Crash Course - Beginner Through Advanced)-TIME (0:00 min TO 28:00 min)
+
 run();
 async function run() {
   try {
     // const user = await User.where("_id").equals("64e5fa216106d6bb5c0ca2cb");
-    const user = await User.findById("64e5fa216106d6bb5c0ca2cb").populate(
-      "bestFriend"
-    );
+    const user = await User.find().findName("ansari");
+    // user.sayHi();
+    // user.findByName();
     // user.bestFriend = "64e5fe2bd9e894078e2a33a5";
     // await user.save();
     // .select("name")

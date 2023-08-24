@@ -16,4 +16,18 @@ const userSchema = new mongoose.Schema({
   address: addressSchema,
 });
 
+// this sayHi method will be availible to the all user instances
+userSchema.methods.sayHi = function () {
+  console.log(`hi my name is ${this.name}`);
+};
+
+// this is the static level function that is availible to the whole model instances
+userSchema.statics.findByName = function (name) {
+  return this.where({ name: new RegExp(name, "i") });
+};
+
+userSchema.query.findName = function (name) {
+  return this.find({ name: new RegExp(name, "i") });
+};
+
 module.exports = mongoose.model("Users", userSchema);
