@@ -1,9 +1,26 @@
 const mongoose = require("mongoose");
 const User = require("./User");
 
-mongoose.connect(
-  "mongodb+srv://sp19bscs0038:ansari123@cluster0.mgcjt2g.mongodb.net/practice-db"
-);
+// mongoose.connect(
+//   "mongodb+srv://sp19bscs0038:ansari123@cluster0.mgcjt2g.mongodb.net/practice-db"
+// );
+async function connectToCluster() {
+  let mongoClient;
+
+  try {
+    mongoClient = mongoose.connect(
+      "mongodb+srv://sp19bscs0038:ansari123@cluster0.mgcjt2g.mongodb.net/practice-db"
+    );
+    console.log("Successfully connected to MongoDB Atlas!");
+
+    return mongoClient;
+  } catch (error) {
+    console.error("Connection to MongoDB Atlas failed!", error);
+    process.exit();
+  }
+}
+
+module.exports = connectToCluster;
 
 //////////Web Dev Simplified :VEDIO NAME(Mongoose Crash Course - Beginner Through Advanced)-TIME (0:00 min TO 28:00 min)
 
