@@ -13,6 +13,7 @@ async function connectToCluster(value) {
     );
 
     const user = await User.findOne({ email: value });
+    console.log(user);
     console.log("Successfully connected to MongoDB Atlas!");
 
     return mongoClient;
