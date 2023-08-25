@@ -4,7 +4,9 @@ var cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(express.json());
-// const connectToCluster = require("./database/mongodb");
+const connectToCluster = require("./dataBase");
+
+connectToCluster();
 
 app.post("/", function (req, res) {
   res.json(`reqest-Body ${JSON.stringify(req.body.param.email)}`);
