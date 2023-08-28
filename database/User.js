@@ -6,13 +6,15 @@ const addressSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
-  name: String,
+  name: { type: String, required: true },
   age: { type: Number, min: 1 },
   email: { type: String, required: true, lowercase: true },
+  password: { type: String, required: true },
+  token: { type: String },
   createdAt: { type: Date, default: () => Date.now() },
   updatedAt: { type: Date, default: () => Date.now() },
   bestFriend: { type: mongoose.SchemaTypes.ObjectId, ref: "User" },
-  hobbies: [String],
+  // hobbies: [String],
   address: addressSchema,
 });
 
