@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("./User");
 
-// mongoose.connect(
-//   "mongodb+srv://sp19bscs0038:ansari123@cluster0.mgcjt2g.mongodb.net/practice-db"
-// );
 async function connectToCluster() {
   let mongoClient;
 

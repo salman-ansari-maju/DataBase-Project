@@ -32,4 +32,4 @@ userSchema.query.findName = function (name) {
   return this.find({ name: new RegExp(name, "i") });
 };
 
-module.exports = mongoose.model("Users", userSchema);
+module.exports = mongoose.model("users", userSchema);

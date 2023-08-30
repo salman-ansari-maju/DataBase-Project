@@ -1,15 +1,45 @@
 const express = require("express");
 var cors = require("cors");
-const User = require("./database/User");
 const app = express();
 app.use(cors());
 app.use(express.json());
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const auth = require("./auth/auth");
+const User = require("./database/User");
 const connectToCluster = require("./database/dataBase");
 
+// const post = require("./database/posts");
+const connectToPosts = require("./database/postConnection");
+const Posts = require("./database/posts");
+
+const url = "mongodb+srv://sp19bscs0038:ansari123@cluster0.mgcjt2g.mongodb.net";
+const dbName = "practice-db";
+
 connectToCluster();
+connectToPosts();
+
+// app.post("/welcome", auth, (req, res) => {
+//   res.status(200).send("Welcome 🙌 ");
+// });
+app.post("/tweet", async function (req, res) {
+  const post = await new Posts({
+    tweet: "This is salman tweet",
+    userID: "64ec7ff7d82b48000140fca1",
+  });
+
+  try {
+    await post.save();
+    console.log("Post is saved");
+    // res.status(201).json({ message: "Post is saved" });
+    console.log(post);
+  } catch (error) {
+    console.error("Error saving post:", error);
+    // res.status(500).json({ error: "Error saving post" });
+  }
+});
+async function run() {}
+run();
 
 const secretKey = "ansari";
 
@@ -18,9 +48,18 @@ function generateToken(user) {
     expiresIn: "2h", // Token expiration time
   });
 }
-
-app.post("/welcome", auth, (req, res) => {
-  res.status(200).send("Welcome 🙌 ");
+app.get("/user", async function (req, res) {
+  const user = await User.aggregate([
+    {
+      $lookup: {
+        foreignField: "userID",
+        localField: "_id",
+        from: "posts",
+        as: "array",
+      },
+    },
+  ]);
+  res.json({ user });
 });
 
 app.post("/", async function (req, res) {
@@ -41,7 +80,7 @@ app.post("/", async function (req, res) {
     if (passwordMatch) {
       const token = generateToken(user);
       user.token = token;
-
+      // console.log(user);
       res.json({ user });
     } else {
       // Passwords do not match; authentication failed
