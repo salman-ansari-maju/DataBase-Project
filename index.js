@@ -55,7 +55,7 @@ app.get("/user", async function (req, res) {
         foreignField: "userID",
         localField: "_id",
         from: "posts",
-        as: "array",
+        as: "posts",
       },
     },
   ]);
